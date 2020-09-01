@@ -30,7 +30,6 @@ class TipoExameController extends Controller
     public function create()
     {
         return view('tipoExame.create');
-
     }
 
     /**
@@ -43,7 +42,7 @@ class TipoExameController extends Controller
     {
         $dados = $request->all();
         dd($dados);
-        //$tipoExame = TipoExame::create("nome"=>, "descricao"=>);
+        TipoExame::create(["nome" => $dados('Nome'), "descricao" => $dados('Descricao')]);
 
 
     }
