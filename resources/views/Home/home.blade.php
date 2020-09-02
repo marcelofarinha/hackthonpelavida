@@ -1,6 +1,6 @@
 <?php
 
-class index
+class Home
 {
 
     private $nome;

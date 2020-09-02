@@ -1,6 +1,6 @@
 <?php
 
-class index
+class Cidade
 {
 
     private $nome;
