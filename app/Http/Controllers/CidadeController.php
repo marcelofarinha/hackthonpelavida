@@ -42,15 +42,15 @@ class CidadeController extends Controller
     {
         $dados = $request->all();
         //dd($dados);
-        $tipoexame = new Cidade();
-        $tipoexame::create([
+        $cidade = new Cidade();
+        $cidade::create([
                             "IDEstado" => $dados('IDEstado'),
                             "Nome" => $dados('Nome'),
                             "CodigoIBGE" => $dados('CodigoIBGE'),
                             "DDD" => $dados('DDD'),
                             "CEPGeral" => $dados('CEPGeral')
                             ]);
-        $tipoexame->save();
+        $cidade->save();
 
 
     }
@@ -89,8 +89,8 @@ class CidadeController extends Controller
     public function update(Request $request, Cidade $cidade)
     {
         $dados = $request->all();
-        $tipoexame = new Cidade();
-        $tipoexame::where('IDCidade', $cidade)
+        $cidade = new Cidade();
+        $cidade::where('IDCidade', $cidade)
                     ->update([
                         "IDEstado" => $dados('IDEstado'),
                         "Nome" => $dados('Nome'),
@@ -98,7 +98,7 @@ class CidadeController extends Controller
                         "DDD" => $dados('DDD'),
                         "CEPGeral" => $dados('CEPGeral')
                         ]);
-        $tipoexame  ->save();
+        $cidade  ->save();
     }
 
     /**

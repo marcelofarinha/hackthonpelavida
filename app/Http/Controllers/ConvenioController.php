@@ -14,7 +14,12 @@ class ConvenioController extends Controller
      */
     public function index()
     {
-        //
+        $convenio = Convenio::all();
+
+
+        return view('convenio.index', compact(['convenio']));
+
+
     }
 
     /**
@@ -24,7 +29,7 @@ class ConvenioController extends Controller
      */
     public function create()
     {
-        //
+        return view('convenio.create');
     }
 
     /**
@@ -35,7 +40,16 @@ class ConvenioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dados = $request->all();
+        //dd($dados);
+        $convenio = new Convenio();
+        $convenio::create([
+                            "IDConvenio" => $dados('IDConvenio'),
+                            "Nome" => $dados('Nome')
+                            ]);
+        $convenio->save();
+
+
     }
 
     /**
@@ -46,7 +60,8 @@ class ConvenioController extends Controller
      */
     public function show(Convenio $convenio)
     {
-        //
+        $consulta = Convenio::find($convenio);
+        return view('convenio.show', compact(['consulta']));
     }
 
     /**
@@ -57,7 +72,8 @@ class ConvenioController extends Controller
      */
     public function edit(Convenio $convenio)
     {
-        //
+        $consulta = Convenio::find($convenio);
+        return view('convenio.edit', compact(['consulta']));
     }
 
     /**
@@ -69,7 +85,14 @@ class ConvenioController extends Controller
      */
     public function update(Request $request, Convenio $convenio)
     {
-        //
+        $dados = $request->all();
+        $convenio = new Convenio();
+        $convenio::where('IDConvenio', $convenio)
+                    ->update([
+                        "IDConvenio" => $dados('IDConvenio'),
+                        "Nome" => $dados('Nome')
+                        ]);
+        $convenio  ->save();
     }
 
     /**
@@ -80,6 +103,9 @@ class ConvenioController extends Controller
      */
     public function destroy(Convenio $convenio)
     {
-        //
+        $convenio = new Convenio();
+        $convenio -> find($convenio);
+        $convenio -> delete();
+        $convenio -> save();
     }
 }
