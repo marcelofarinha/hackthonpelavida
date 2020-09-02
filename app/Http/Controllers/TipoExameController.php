@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\TipoExame;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TipoExameController extends Controller
@@ -58,7 +59,7 @@ class TipoExameController extends Controller
     public function show(TipoExame $tipoExame)
     {
         $consulta = TipoExame::find($tipoExame);
-        return view('tipoExame.edit', compact(['consulta']));
+        return view('tipoExame.show', compact(['consulta']));
     }
 
     /**
@@ -69,7 +70,8 @@ class TipoExameController extends Controller
      */
     public function edit(TipoExame $tipoExame)
     {
-        //
+        $consulta = TipoExame::find($tipoExame);
+        return view('tipoExame.edit', compact(['consulta']));
     }
 
     /**
@@ -81,7 +83,11 @@ class TipoExameController extends Controller
      */
     public function update(Request $request, TipoExame $tipoExame)
     {
-        //
+        $dados = $request->all();
+        $tipoexame = new TipoExame();
+        $tipoexame::where('IDTipoExame', $tipoExame)
+                    ->update(["nome" => $dados('Nome'), "descricao" => $dados('Descricao'), "updated_at" => now()]);
+        $tipoexame->save();
     }
 
     /**
@@ -92,6 +98,9 @@ class TipoExameController extends Controller
      */
     public function destroy(TipoExame $tipoExame)
     {
-        //
+        $tipoExame = new TipoExame();
+        $tipoExame -> find($tipoExame);
+        $tipoExame -> delete();
+        $tipoExame -> save();
     }
 }

@@ -9,6 +9,6 @@ class TipoExame extends Model
 {
     protected $guarded = [];
     protected $table = 'tipoexame';
-    //protected $primaryKey = 'IDTipo';
+    protected $primaryKey = 'IDTipoExame';
     use SoftDeletes;
 }
