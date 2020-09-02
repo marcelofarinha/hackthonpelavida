@@ -41,8 +41,10 @@ class TipoExameController extends Controller
     public function store(Request $request)
     {
         $dados = $request->all();
-        dd($dados);
-        TipoExame::create(["nome" => $dados('Nome'), "descricao" => $dados('Descricao')]);
+        //dd($dados);
+        $tipoexame = new TipoExame();
+        $tipoexame::create(["nome" => $dados('Nome'), "descricao" => $dados('Descricao')]);
+        $tipoexame->save();
 
 
     }
@@ -55,7 +57,8 @@ class TipoExameController extends Controller
      */
     public function show(TipoExame $tipoExame)
     {
-        //
+        $consulta = TipoExame::find($tipoExame);
+        return view('tipoExame.edit', compact(['consulta']));
     }
 
     /**
