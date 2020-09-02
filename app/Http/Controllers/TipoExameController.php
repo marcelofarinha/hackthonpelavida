@@ -87,7 +87,7 @@ class TipoExameController extends Controller
         $tipoexame = new TipoExame();
         $tipoexame::where('IDTipoExame', $tipoExame)
                     ->update(["nome" => $dados('Nome'), "descricao" => $dados('Descricao'), "updated_at" => now()]);
-        $tipoexame->save();
+        $tipoexame  ->save();
     }
 
     /**

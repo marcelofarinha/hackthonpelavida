@@ -14,7 +14,12 @@ class CidadeController extends Controller
      */
     public function index()
     {
-        //
+        $cidade = Cidade::all();
+
+
+        return view('cidade.index', compact(['cidade']));
+
+
     }
 
     /**
@@ -24,7 +29,7 @@ class CidadeController extends Controller
      */
     public function create()
     {
-        //
+        return view('cidade.create');
     }
 
     /**
@@ -35,7 +40,19 @@ class CidadeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dados = $request->all();
+        //dd($dados);
+        $tipoexame = new Cidade();
+        $tipoexame::create([
+                            "IDEstado" => $dados('IDEstado'),
+                            "Nome" => $dados('Nome'),
+                            "CodigoIBGE" => $dados('CodigoIBGE'),
+                            "DDD" => $dados('DDD'),
+                            "CEPGeral" => $dados('CEPGeral')
+                            ]);
+        $tipoexame->save();
+
+
     }
 
     /**
@@ -46,7 +63,8 @@ class CidadeController extends Controller
      */
     public function show(Cidade $cidade)
     {
-        //
+        $consulta = Cidade::find($cidade);
+        return view('cidade.show', compact(['consulta']));
     }
 
     /**
@@ -57,7 +75,8 @@ class CidadeController extends Controller
      */
     public function edit(Cidade $cidade)
     {
-        //
+        $consulta = Cidade::find($cidade);
+        return view('cidade.edit', compact(['consulta']));
     }
 
     /**
@@ -69,7 +88,17 @@ class CidadeController extends Controller
      */
     public function update(Request $request, Cidade $cidade)
     {
-        //
+        $dados = $request->all();
+        $tipoexame = new Cidade();
+        $tipoexame::where('IDCidade', $cidade)
+                    ->update([
+                        "IDEstado" => $dados('IDEstado'),
+                        "Nome" => $dados('Nome'),
+                        "CodigoIBGE" => $dados('CodigoIBGE'),
+                        "DDD" => $dados('DDD'),
+                        "CEPGeral" => $dados('CEPGeral')
+                        ]);
+        $tipoexame  ->save();
     }
 
     /**
@@ -80,6 +109,9 @@ class CidadeController extends Controller
      */
     public function destroy(Cidade $cidade)
     {
-        //
+        $cidade = new Cidade();
+        $cidade -> find($cidade);
+        $cidade -> delete();
+        $cidade -> save();
     }
 }

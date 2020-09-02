@@ -14,7 +14,9 @@ class CepController extends Controller
      */
     public function index()
     {
-        //
+        $cep = Cep::all();
+        return view('cep.index', compact(['cep']));
+
     }
 
     /**
@@ -24,7 +26,7 @@ class CepController extends Controller
      */
     public function create()
     {
-        //
+        return view('cep.create');
     }
 
     /**
@@ -35,7 +37,20 @@ class CepController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $dados = $request->all();
+        //dd($dados);
+        $cep = new Cep();
+        $cep::create([
+                        "IDCidade" => $dados('IDCidade'),
+                        "CEP" => $dados('CEP'),
+                        "Logradouro" => $dados('Logradouro'),
+                        "Coordenada" => $dados('Coordenada'),
+                        "Bairro"     => $dados('Bairro'),
+                    ]);
+
+        $cep->save();
+
     }
 
     /**
@@ -46,7 +61,8 @@ class CepController extends Controller
      */
     public function show(Cep $cep)
     {
-        //
+        $consulta = Cep::find($cep);
+        return view('Cep.show', compact(['consulta']));
     }
 
     /**
@@ -57,7 +73,8 @@ class CepController extends Controller
      */
     public function edit(Cep $cep)
     {
-        //
+        $consulta = Cep::find($cep);
+        return view('Cep.edit', compact(['consulta']));
     }
 
     /**
@@ -69,7 +86,18 @@ class CepController extends Controller
      */
     public function update(Request $request, Cep $cep)
     {
-        //
+        $dados = $request->all();
+        $cep = new Cep();
+        $cep::where('IDCep', $cep)
+                    ->update([
+                                "IDCidade" => $dados('IDCidade'),
+                                "CEP" => $dados('CEP'),
+                                "Logradouro" => $dados('Logradouro'),
+                                "Coordenada" => $dados('Coordenada'),
+                                "Bairro"     => $dados('Bairro'),
+                                "updated_at" => now()
+                            ]);
+        $cep->save();
     }
 
     /**
@@ -80,6 +108,9 @@ class CepController extends Controller
      */
     public function destroy(Cep $cep)
     {
-        //
+        $cep = new Cep();
+        $cep -> find($cep);
+        $cep -> delete();
+        $cep -> save();
     }
 }
