@@ -14,7 +14,12 @@ class EstadoController extends Controller
      */
     public function index()
     {
-        //
+        $estado = Estado::all();
+
+
+        return view('cidade.index', compact(['cidade']));
+
+
     }
 
     /**
@@ -24,7 +29,7 @@ class EstadoController extends Controller
      */
     public function create()
     {
-        //
+        return view('cidade.create');
     }
 
     /**
@@ -35,7 +40,18 @@ class EstadoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dados = $request->all();
+        //dd($dados);
+        $estado = new Estado();
+        $estado::create([
+                            "IDPais" => $dados('IDPais'),
+                            "Nome" => $dados('Nome'),
+                            "CodigoIBGE" => $dados('CodigoIBGE'),
+                            "Sigla" => $dados('Sigla')
+                            ]);
+        $estado->save();
+
+
     }
 
     /**
@@ -46,7 +62,8 @@ class EstadoController extends Controller
      */
     public function show(Estado $estado)
     {
-        //
+        $consulta = Estado::find($estado);
+        return view('cidade.show', compact(['consulta']));
     }
 
     /**
@@ -57,7 +74,8 @@ class EstadoController extends Controller
      */
     public function edit(Estado $estado)
     {
-        //
+        $consulta = Estado::find($estado);
+        return view('cidade.edit', compact(['consulta']));
     }
 
     /**
@@ -69,7 +87,16 @@ class EstadoController extends Controller
      */
     public function update(Request $request, Estado $estado)
     {
-        //
+        $dados = $request->all();
+        $estado = new Estado();
+        $estado::where('IDEstado', $estado)
+                    ->update([
+                        "IDPais" => $dados('IDPais'),
+                        "Nome" => $dados('Nome'),
+                        "CodigoIBGE" => $dados('CodigoIBGE'),
+                        "Sigla" => $dados('Sigla')
+                        ]);
+        $estado  ->save();
     }
 
     /**
@@ -80,6 +107,9 @@ class EstadoController extends Controller
      */
     public function destroy(Estado $estado)
     {
-        //
+        $estado = new Estado();
+        $estado -> find($estado);
+        $estado -> delete();
+        $estado -> save();
     }
 }
